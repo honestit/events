@@ -14,9 +14,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode
-@ToString
-public class Event {
+@EqualsAndHashCode(of = {"name", "where", "when"}, callSuper = false)
+@ToString(callSuper = true)
+public class Event extends BaseEntity implements Identifiable<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -32,6 +32,4 @@ public class Event {
     private EventPlace where;
     private LocalDateTime when;
 
-    private LocalDateTime createdOn;
-    private LocalDateTime updatedOn;
 }

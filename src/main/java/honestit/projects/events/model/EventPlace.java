@@ -1,15 +1,14 @@
 package honestit.projects.events.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Embeddable
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
-public class EventPlace {
+@EqualsAndHashCode(of = {"name", "address"})
+public class EventPlace implements Serializable {
 
     @Column(nullable = false)
     private String name;

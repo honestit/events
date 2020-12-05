@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Table(name = "users")
 @SecondaryTable(name = "user_credentials", pkJoinColumns = @PrimaryKeyJoinColumn)
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
-public class User {
+public class User extends BaseEntity implements Identifiable<Long> {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,7 +30,4 @@ public class User {
             @AttributeOverride(name = "role", column = @Column(table = "user_credentials"))
     })
     private UserCredentials credentials;
-
-    private LocalDateTime createdOn;
-    private LocalDateTime updatedOn;
 }

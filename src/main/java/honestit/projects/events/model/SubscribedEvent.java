@@ -10,7 +10,7 @@ import java.util.EventListener;
 @Entity
 @Table(name = "user_subscribed_events")
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
-@EqualsAndHashCode(callSuper = true) @ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true, of = "subscribedOn") @ToString(callSuper = true)
 public class SubscribedEvent extends Event {
 
     private LocalDateTime subscribedOn;

@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 @Embeddable
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
-public class EventReview {
+public class EventReview implements Serializable {
 
     @Column(nullable = false)
     private Integer rating;
