@@ -9,19 +9,16 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "events")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 @SecondaryTable(name = "event_places", pkJoinColumns = @PrimaryKeyJoinColumn)
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Data @NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(of = {"name", "where", "when"}, callSuper = false)
 @ToString(callSuper = true)
 public class Event extends BaseEntity implements Identifiable<Long> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;

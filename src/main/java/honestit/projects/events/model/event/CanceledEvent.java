@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_canceled_events")
-@Data @NoArgsConstructor @AllArgsConstructor @Builder
+@Data @NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true, of = "canceledOn") @ToString(callSuper = true)
 public class CanceledEvent extends SubscribedEvent {
 

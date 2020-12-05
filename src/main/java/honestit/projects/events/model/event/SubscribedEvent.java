@@ -1,6 +1,5 @@
 package honestit.projects.events.model.event;
 
-import honestit.projects.events.model.event.Event;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -9,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_subscribed_events")
-@Data @NoArgsConstructor @AllArgsConstructor @Builder
+@Data @NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true, of = "subscribedOn") @ToString(callSuper = true)
 public class SubscribedEvent extends Event {
 
