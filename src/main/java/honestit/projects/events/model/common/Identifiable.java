@@ -1,4 +1,4 @@
-package honestit.projects.events.model;
+package honestit.projects.events.model.common;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package honestit.projects.events.model;
+package honestit.projects.events.model.user;
 
 import lombok.*;
 

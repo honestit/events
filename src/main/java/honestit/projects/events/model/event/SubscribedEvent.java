@@ -1,11 +1,11 @@
-package honestit.projects.events.model;
+package honestit.projects.events.model.event;
 
+import honestit.projects.events.model.event.Event;
 import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
-import java.util.EventListener;
 
 @Entity
 @Table(name = "user_subscribed_events")

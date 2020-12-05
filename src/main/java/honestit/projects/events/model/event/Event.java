@@ -1,5 +1,7 @@
-package honestit.projects.events.model;
+package honestit.projects.events.model.event;
 
+import honestit.projects.events.model.common.BaseEntity;
+import honestit.projects.events.model.common.Identifiable;
 import lombok.*;
 
 import javax.persistence.*;

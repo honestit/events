@@ -1,13 +1,13 @@
-package honestit.projects.events.model;
+package honestit.projects.events.model.user;
 
+import honestit.projects.events.model.common.BaseEntity;
+import honestit.projects.events.model.common.Identifiable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")

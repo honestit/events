@@ -1,20 +1,18 @@
-package honestit.projects.events.model;
+package honestit.projects.events.model.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
-public class EventReview implements Serializable {
+public class UserDetails implements Serializable {
 
-    @Column(nullable = false)
-    private Integer rating;
-    @Column(length = 0xffff)
-    private String review;
+    private String firstName;
+    private String lastName;
+
 }
