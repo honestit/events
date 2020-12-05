@@ -1,7 +1,7 @@
-package honestit.projects.events.model.user;
+package honestit.projects.eventuator.model.user;
 
-import honestit.projects.events.model.common.BaseEntity;
-import honestit.projects.events.model.common.Identifiable;
+import honestit.projects.eventuator.model.common.BaseEntity;
+import honestit.projects.eventuator.model.common.Identifiable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

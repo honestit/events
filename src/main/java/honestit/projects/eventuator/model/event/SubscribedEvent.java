@@ -1,6 +1,6 @@
-package honestit.projects.events.model.event;
+package honestit.projects.eventuator.model.event;
 
-import honestit.projects.events.model.user.User;
+import honestit.projects.eventuator.model.user.User;
 import lombok.*;
 
 import javax.persistence.*;

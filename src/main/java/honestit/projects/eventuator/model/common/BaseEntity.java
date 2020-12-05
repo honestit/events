@@ -1,4 +1,4 @@
-package honestit.projects.events.model.common;
+package honestit.projects.eventuator.model.common;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package honestit.projects.events.model.event;
+package honestit.projects.eventuator.model.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

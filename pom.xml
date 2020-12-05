@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>honestit.projects</groupId>
-	<artifactId>events</artifactId>
+	<artifactId>eventuator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>events</name>
+	<name>eventuator</name>
 	<description>Simple app for managing events</description>
 
 	<properties>
