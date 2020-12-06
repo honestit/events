@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register your account</title>
+</head>
+<body>
+<section>
+    <h1>Register your account</h1>
+    <h2>Sign up to get full access</h2>
+</section>
+<section>
+    <div th:if="${error != null}" th:text="${error}"></div>
+    <div>
+        <form method="post" th:action="@{/register}" th:object="${registration}">
+            <div th:if="${#fields.hasGlobalErrors()}">
+                <ul>
+                    <li th:each="err : ${#fields.globalErrors()}" th:text="${err}"></li>
+                </ul>
+            </div>
+            <div>
+                <label>
+                    <span>Username:</span>
+                    <input th:field="*{username}" type="email"/>
+                </label>
+                <span th:each="err : ${#fields.errors('username')}" th:text="${err}"></span>
+            </div>
+            <div>
+                <label>
+                    <span>Nickname:</span>
+                    <input th:field="*{nickname}" type="text"/>
+                </label>
+                <span th:each="err : ${#fields.errors('nickname')}" th:text="${err}"></span>
+            </div>
+            <div>
+                <label>
+                    <span>Password:</span>
+                    <input th:field="*{password}" type="password"/>
+                </label>
+                <span th:each="err : ${#fields.errors('password')}" th:text="${err}"></span>
+            </div>
+            <div>
+                <button type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>

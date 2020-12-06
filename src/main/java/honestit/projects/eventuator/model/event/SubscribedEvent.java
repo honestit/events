@@ -16,7 +16,7 @@ public class SubscribedEvent extends Event {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @Column(insertable = false, updatable = false)
+    @Column(name = "user_id", insertable = false, updatable = false)
     private Long userId;
     private LocalDateTime subscribedOn;
 
