@@ -2,9 +2,9 @@ package honestit.projects.eventuator.accounts.registration;
 
 public interface RegistrationResponse {
 
-    Long id();
+    Long getId();
 
-    boolean success();
+    boolean isSuccess();
 
-    Exception exception();
+    Exception getException();
 }

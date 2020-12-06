@@ -2,9 +2,9 @@ package honestit.projects.eventuator.accounts.registration;
 
 public interface RegistrationRequest {
 
-    String username();
+    String getUsername();
 
-    String password();
+    String getPassword();
 
-    String nickname();
+    String getNickname();
 }

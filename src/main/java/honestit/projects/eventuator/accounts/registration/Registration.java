@@ -1,6 +1,6 @@
 package honestit.projects.eventuator.accounts.registration;
 
-public interface Registration {
+public interface Registration<R extends RegistrationRequest> {
 
-    RegistrationResponse register(RegistrationRequest request);
+    RegistrationResponse register(R request);
 }
