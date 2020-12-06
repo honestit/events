@@ -24,7 +24,7 @@ public class InternalRegistration implements Registration<InternalRegistrationRe
         User user = converter.from(request);
         log.debug("Converted user: {}", user);
 
-        if (!userRepository.existsByUsername(user.getUsername())) {
+        if (userRepository.existsByUsername(user.getUsername())) {
             log.debug("Username already taken: {}", user.getUsername());
             return InternalRegistrationResponse.builder().success(false).exception(new UsernameAlreadyTakenException(user.getUsername())).build();
         }
