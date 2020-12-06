@@ -6,10 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class InternalRegistrationRequest implements RegistrationRequest {
@@ -18,9 +15,9 @@ public class InternalRegistrationRequest implements RegistrationRequest {
     @Email
     private String username;
     @NotBlank
-    @Min(8) @Max(12)
+    @Size(min = 6, max = 12)
     private String password;
     @NotBlank
-    @Min(3) @Max(16)
+    @Size(min = 3, max = 16)
     private String nickname;
 }
