@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Register your account</title>
+    <title th:text="#{registration.form.page-title}">Register your account</title>
 </head>
 <body>
 <section>
-    <h1>Register your account</h1>
-    <h2>Sign up to get full access</h2>
+    <h1 th:text="#{registration.form.title}">Register your account</h1>
+    <h2 th:text="#{registration.form.subtitle}">Sign up to get full access</h2>
 </section>
 <section>
     <div th:if="${error != null}" th:text="${error}"></div>
@@ -20,27 +20,27 @@
             </div>
             <div>
                 <label>
-                    <span>Username:</span>
+                    <span th:text="#{registration.form.labels.username}">Username:</span>
                     <input th:field="*{username}" type="email"/>
                 </label>
                 <span th:each="err : ${#fields.errors('username')}" th:text="${err}"></span>
             </div>
             <div>
                 <label>
-                    <span>Nickname:</span>
+                    <span th:text="#{registration.form.labels.nickname}">Nickname:</span>
                     <input th:field="*{nickname}" type="text"/>
                 </label>
                 <span th:each="err : ${#fields.errors('nickname')}" th:text="${err}"></span>
             </div>
             <div>
                 <label>
-                    <span>Password:</span>
+                    <span th:text="#{registration.form.labels.password}">Password:</span>
                     <input th:field="*{password}" type="password"/>
                 </label>
                 <span th:each="err : ${#fields.errors('password')}" th:text="${err}"></span>
             </div>
             <div>
-                <button type="submit">Register</button>
+                <button type="submit" th:text="#{registration.form.labels.submit}">Register</button>
             </div>
         </form>
     </div>
