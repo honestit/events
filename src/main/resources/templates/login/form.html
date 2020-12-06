@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{login.form.page-title}">Login to Eventuator</title>
+</head>
+<body>
+<section>
+    <h1 th:text="#{login.form.title}">Please login</h1>
+    <h2>
+        <span th:text="#{login.form.subtitle.question}">Don't have an account?</span>
+        <a th:href="@{/register}" th:text="#{login.form.subtitle.register-link}">Register first</a>
+    </h2>
+</section>
+<section>
+    <div th:if="${param.error != null}" th:text="#{login.form.error}">Invalid credentials</div>
+    <div th:if="${param.logout != null}" th:text="#{login.form.logout}">You've been successful logout</div>
+    <div>
+        <form method="post" th:action="@{/login}">
+            <div>
+                <label>
+                    <span th:text="#{login.form.username}">Username:</span>
+                    <input name="username" type="email"/>
+                </label>
+            </div>
+            <div>
+                <label>
+                    <span th:text="#{login.form.password}">Password:</span>
+                    <input name="password" type="password"/>
+                </label>
+            </div>
+            <div>
+                <button type="submit" th:text="#{login.form.login}">Login</button>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>
