@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login to Eventuator</title>
+</head>
+<body>
+<section>
+    <h1>Please login</h1>
+    <h2>
+        <span>Don't have an account?</span>
+        <a th:href="@{/register}">Register first</a>
+    </h2>
+</section>
+<section>
+    <div>
+        <form method="post" th:action="@{/login}">
+            <div>
+                <label>
+                    <span>Username:</span>
+                    <input name="username" type="email"/>
+                </label>
+            </div>
+            <div>
+                <label>
+                    <span>Password:</span>
+                    <input name="password" type="password"/>
+                </label>
+            </div>
+            <div>
+                <button type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>
