@@ -7,6 +7,7 @@ import honestit.projects.eventuator.model.user.UserConverter;
 import honestit.projects.eventuator.model.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ public class InternalRegistration implements Registration<InternalRegistrationRe
 
     private final UserRepository userRepository;
     private final UserConverter converter;
+    private final PasswordEncoder passwordEncoder;
 
     @Override @Transactional
     public RegistrationResponse register(InternalRegistrationRequest request) {
@@ -29,9 +31,15 @@ public class InternalRegistration implements Registration<InternalRegistrationRe
             return InternalRegistrationResponse.builder().success(false).exception(new UsernameAlreadyTakenException(user.getUsername())).build();
         }
 
-        user.getCredentials().setRole("ROLE_USER");
+        updateUserCredentials(user);
+
         userRepository.save(user);
         log.debug("Saved user: {}", user);
         return InternalRegistrationResponse.builder().success(true).id(user.getId()).build();
+    }
+
+    private void updateUserCredentials(User user) {
+        user.getCredentials().setRole("ROLE_USER");
+        user.getCredentials().setPassword(passwordEncoder.encode(user.getCredentials().getPassword()));
     }
 }
