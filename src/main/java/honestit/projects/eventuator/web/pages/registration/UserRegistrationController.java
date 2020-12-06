@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
@@ -37,15 +38,23 @@ public class UserRegistrationController {
             return "registration/form";
         }
 
-        registration.register(request);
-        return "registration/success";
+        RegistrationResponse response = registration.register(request);
+        if (response.isSuccess()) {
+            return "registration/success";
+        }
+        else {
+            bindings.reject("registration-logic-error", response.getException().getLocalizedMessage());
+            return "registration/form";
+        }
     }
 
     @ExceptionHandler(Exception.class)
-    public String processException(Exception exception, Model model) {
+    public ModelAndView processException(Exception exception) {
+        ModelAndView modelAndView = new ModelAndView();
         log.warn("Exception during registration: {}", exception.getLocalizedMessage());
-        model.addAttribute("registration", new InternalRegistrationRequest());
-        model.addAttribute("error", "registration-error");
-        return "registration/form";
+        modelAndView.addObject("registration", new InternalRegistrationRequest());
+        modelAndView.addObject("error", "registration-error");
+        modelAndView.setViewName("registration/form");
+        return modelAndView;
     }
 }
