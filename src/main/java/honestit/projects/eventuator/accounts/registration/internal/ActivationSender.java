@@ -18,13 +18,13 @@ import java.util.Locale;
 @Slf4j @RequiredArgsConstructor
 public class ActivationSender {
 
-    private final ActivationProperties activationProperties;
+    private final AccountActivationProperties activationProperties;
     private final JavaMailSender mailSender;
     private final MessageSource messageSource;
     private final SpringTemplateEngine templateEngine;
 
-    private String MAIL_TEMPLATE = "mail/activation";
-    private String MAIL_TITLE = "mail.activation.mail-title";
+    private String MAIL_TEMPLATE_LOCATION = "mail/activation";
+    private String MAIL_SUBJECT_MESSAGE_CODE = "mail.activation.mail-title";
 
     @Async
     public void sendActivationMail(String username, String tokenValue, Locale locale) {
@@ -42,8 +42,10 @@ public class ActivationSender {
         MimeMessage activationMail = mailSender.createMimeMessage();
         MimeMessageHelper helper = getBaseMimeMessageHelper(username, activationMail);
         String mailSubject = getMailSubject(locale);
+        log.trace("Sending mail to {} with title {}", username, mailSubject);
         helper.setSubject(mailSubject);
         String mailBody = getMailBody(username, tokenValue, locale);
+        log.trace("Sending mail to {} with body {}", username, mailBody);
         helper.setText(mailBody, true);
         mailSender.send(activationMail);
     }
@@ -53,11 +55,11 @@ public class ActivationSender {
         context.setVariable("username", username);
         context.setVariable("tokenValue", tokenValue);
         context.setVariable("address", activationProperties.getAppHost() + ":" + activationProperties.getAppPort());
-        return templateEngine.process(MAIL_TEMPLATE, context);
+        return templateEngine.process(MAIL_TEMPLATE_LOCATION, context);
     }
 
     private String getMailSubject(Locale locale) {
-        return messageSource.getMessage(MAIL_TITLE, null, locale);
+        return messageSource.getMessage(MAIL_SUBJECT_MESSAGE_CODE, null, locale);
     }
 
     private MimeMessageHelper getBaseMimeMessageHelper(String username, MimeMessage activationMail) throws MessagingException {

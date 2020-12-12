@@ -8,7 +8,6 @@ import honestit.projects.eventuator.model.user.UserConverter;
 import honestit.projects.eventuator.model.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +21,7 @@ public class InternalRegistration implements Registration<InternalRegistrationRe
     private final UserRepository userRepository;
     private final UserConverter converter;
     private final PasswordEncoder passwordEncoder;
-    private final ActivationProperties activationProperties;
-    private final JavaMailSender mailSender;
+    private final AccountActivationProperties activationProperties;
     private final ActivationSender activationSender;
 
     @Override @Transactional

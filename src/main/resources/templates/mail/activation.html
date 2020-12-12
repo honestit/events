@@ -14,7 +14,7 @@
     <span th:text="#{mail.activation.follow}">To continue registration and activate your account please follow this link: </span><a th:href="@{http://__${address}__/activate/__${tokenValue}__}" th:text="#{mail.activation.link}">activate</a>
 </p>
 <p>
-    <span th:utext="#{mail.activation.ignore(${address})}">If you didn't register your account on localhost:8080 please ignore this message</span>
+    <span th:utext="#{mail.activation.ignore(${address})}">If you didn't register your account on <a href='http://localhost:8080'>localhost:8080</a> please ignore this message</span>
 </p>
 </body>
 </html>
