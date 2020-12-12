@@ -41,7 +41,7 @@ public class InternalRegistration implements Registration<InternalRegistrationRe
         updateUserCredentials(user);
         generateActivationToken(user);
 
-        activationSender.sendActivationMail(user.getUsername(), user.getActivationToken().getValue());
+        activationSender.sendActivationMail(user.getUsername(), user.getActivationToken().getValue(), request.getLocale());
         log.debug("Activation mail sending requested");
         userRepository.save(user);
         log.debug("Saved user: {}", user);

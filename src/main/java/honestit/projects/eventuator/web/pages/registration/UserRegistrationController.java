@@ -6,7 +6,6 @@ import honestit.projects.eventuator.accounts.registration.internal.InternalRegis
 import honestit.projects.eventuator.web.utils.Errors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/register")
@@ -30,7 +30,7 @@ public class UserRegistrationController {
     }
 
     @PostMapping
-    public String processPage(@ModelAttribute("registration") @Valid InternalRegistrationRequest request, BindingResult bindings) {
+    public String processPage(@ModelAttribute("registration") @Valid InternalRegistrationRequest request, BindingResult bindings, Locale locale) {
         log.debug("Registration request: {}", request);
 
         if (bindings.hasErrors()) {
@@ -38,6 +38,7 @@ public class UserRegistrationController {
             return "registration/form";
         }
 
+        request.setLocale(locale);
         RegistrationResponse response = registration.register(request);
         if (response.isSuccess()) {
             return "registration/success";

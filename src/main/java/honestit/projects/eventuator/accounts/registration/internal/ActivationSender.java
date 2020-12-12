@@ -23,31 +23,47 @@ public class ActivationSender {
     private final MessageSource messageSource;
     private final SpringTemplateEngine templateEngine;
 
+    private String MAIL_TEMPLATE = "mail/activation";
+    private String MAIL_TITLE = "mail.activation.mail-title";
+
     @Async
-    public void sendActivationMail(String username, String tokenValue) {
+    public void sendActivationMail(String username, String tokenValue, Locale locale) {
         log.info("Sending activation message to {}", username);
         try {
-            sendActivation(username, tokenValue);
+            sendActivation(username, tokenValue, locale);
         } catch (MessagingException messagingException) {
             log.warn("Error while sending activation message to " + username, messagingException);
             throw new RuntimeException("Error while sending activation message to " + username, messagingException);
         }
-        log.info("Activation message sent");
+        log.info("Activation message sent to {}", username);
     }
 
-    private void sendActivation(String username, String tokenValue) throws MessagingException {
+    private void sendActivation(String username, String tokenValue, Locale locale) throws MessagingException {
         MimeMessage activationMail = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(activationMail);
-        helper.setFrom(activationProperties.getMailAccount());
-        helper.setTo(username);
-        String mailSubject = messageSource.getMessage("mail.activation.mail-title", null, Locale.getDefault());
+        MimeMessageHelper helper = getBaseMimeMessageHelper(username, activationMail);
+        String mailSubject = getMailSubject(locale);
         helper.setSubject(mailSubject);
-        Context context = new Context(Locale.getDefault());
+        String mailBody = getMailBody(username, tokenValue, locale);
+        helper.setText(mailBody, true);
+        mailSender.send(activationMail);
+    }
+
+    private String getMailBody(String username, String tokenValue, Locale locale) {
+        Context context = new Context(locale);
         context.setVariable("username", username);
         context.setVariable("tokenValue", tokenValue);
         context.setVariable("address", activationProperties.getAppHost() + ":" + activationProperties.getAppPort());
-        String mailBody = templateEngine.process("mail/activation", context);
-        helper.setText(mailBody, true);
-        mailSender.send(activationMail);
+        return templateEngine.process(MAIL_TEMPLATE, context);
+    }
+
+    private String getMailSubject(Locale locale) {
+        return messageSource.getMessage(MAIL_TITLE, null, locale);
+    }
+
+    private MimeMessageHelper getBaseMimeMessageHelper(String username, MimeMessage activationMail) throws MessagingException {
+        MimeMessageHelper helper = new MimeMessageHelper(activationMail);
+        helper.setFrom(activationProperties.getMailAccount());
+        helper.setTo(username);
+        return helper;
     }
 }
