@@ -2,6 +2,7 @@ package honestit.projects.eventuator.accounts.registration.internal;
 
 import honestit.projects.eventuator.accounts.registration.Registration;
 import honestit.projects.eventuator.accounts.registration.RegistrationResponse;
+import honestit.projects.eventuator.model.user.Token;
 import honestit.projects.eventuator.model.user.User;
 import honestit.projects.eventuator.model.user.UserConverter;
 import honestit.projects.eventuator.model.user.UserRepository;
@@ -10,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.temporal.ChronoUnit;
 
 @Service
 @Slf4j @RequiredArgsConstructor
@@ -32,14 +35,21 @@ public class InternalRegistration implements Registration<InternalRegistrationRe
         }
 
         updateUserCredentials(user);
+        generateActivationToken(user);
 
         userRepository.save(user);
         log.debug("Saved user: {}", user);
         return InternalRegistrationResponse.builder().success(true).id(user.getId()).build();
     }
 
+    private void generateActivationToken(User user) {
+        Token activationToken = Token.generate(24 * 60 * 60, ChronoUnit.SECONDS);
+        user.setActivationToken(activationToken);
+    }
+
     private void updateUserCredentials(User user) {
         user.getCredentials().setRole("ROLE_USER");
         user.getCredentials().setPassword(passwordEncoder.encode(user.getCredentials().getPassword()));
+        user.getCredentials().setActive(false);
     }
 }

@@ -43,5 +43,5 @@ public class User extends BaseEntity implements Identifiable<Long> {
             @AttributeOverride(name = "createdOn", column = @Column(table = "user_activation_tokens")),
             @AttributeOverride(name = "activeTill", column = @Column(table = "user_activation_tokens"))
     })
-    private Token activation_token;
+    private Token activationToken;
 }
