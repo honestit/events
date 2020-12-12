@@ -9,13 +9,10 @@ import honestit.projects.eventuator.model.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import java.time.temporal.ChronoUnit;
 
 @Service
@@ -27,6 +24,7 @@ public class InternalRegistration implements Registration<InternalRegistrationRe
     private final PasswordEncoder passwordEncoder;
     private final ActivationProperties activationProperties;
     private final JavaMailSender mailSender;
+    private final ActivationSender activationSender;
 
     @Override @Transactional
     public RegistrationResponse register(InternalRegistrationRequest request) {
@@ -42,27 +40,12 @@ public class InternalRegistration implements Registration<InternalRegistrationRe
 
         updateUserCredentials(user);
         generateActivationToken(user);
-        try {
-            sendActivation(user);
-        } catch (MessagingException messagingException) {
-            log.warn("Exception while sending activation mail", messagingException);
-            return InternalRegistrationResponse.builder().success(false).exception(messagingException).build();
-        }
 
+        activationSender.sendActivationMail(user.getUsername(), user.getActivationToken().getValue());
+        log.debug("Activation mail sending requested");
         userRepository.save(user);
         log.debug("Saved user: {}", user);
         return InternalRegistrationResponse.builder().success(true).id(user.getId()).build();
-    }
-
-    private void sendActivation(User user) throws MessagingException {
-        MimeMessage activationMail = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(activationMail);
-        helper.setFrom("no-reply@eventuator.com");
-        helper.setTo(user.getUsername());
-        helper.setSubject("Activate your account");
-        String mailMessage = String.format("<a href='%s'>Aktywuj</a>", "http://localhost:8080/activate/" + user.getActivationToken().getValue());
-        helper.setText(mailMessage, true);
-        mailSender.send(activationMail);
     }
 
     private void generateActivationToken(User user) {
