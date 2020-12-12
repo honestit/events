@@ -25,6 +25,7 @@ public class InternalRegistration implements Registration<InternalRegistrationRe
     private final UserRepository userRepository;
     private final UserConverter converter;
     private final PasswordEncoder passwordEncoder;
+    private final ActivationProperties activationProperties;
     private final JavaMailSender mailSender;
 
     @Override @Transactional
@@ -65,7 +66,7 @@ public class InternalRegistration implements Registration<InternalRegistrationRe
     }
 
     private void generateActivationToken(User user) {
-        Token activationToken = Token.generate(24 * 60 * 60, ChronoUnit.SECONDS);
+        Token activationToken = Token.generate(activationProperties.getTokenSeconds(), ChronoUnit.SECONDS);
         user.setActivationToken(activationToken);
     }
 
