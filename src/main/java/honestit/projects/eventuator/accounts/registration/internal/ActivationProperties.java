@@ -13,4 +13,6 @@ public class ActivationProperties {
 
     private Long tokenSeconds = ChronoUnit.DAYS.getDuration().toSeconds();
     private String mailAccount;
+    private String appHost = "localhost";
+    private Integer appPort = 8080;
 }
