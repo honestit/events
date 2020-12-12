@@ -14,6 +14,7 @@ import javax.persistence.*;
 @SecondaryTables({
         @SecondaryTable(name = "user_credentials", pkJoinColumns = @PrimaryKeyJoinColumn),
         @SecondaryTable(name = "user_activation_tokens", pkJoinColumns = @PrimaryKeyJoinColumn),
+        @SecondaryTable(name = "user_locale_data", pkJoinColumns = @PrimaryKeyJoinColumn)
 })
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class User extends BaseEntity implements Identifiable<Long> {
@@ -28,6 +29,12 @@ public class User extends BaseEntity implements Identifiable<Long> {
 
     @Embedded
     private UserDetails details;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "locale", column = @Column(table = "user_locale_data"))
+    })
+    private UserLocalization localization;
 
     @Embedded
     @AttributeOverrides({

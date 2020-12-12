@@ -1,4 +1,4 @@
-package honestit.projects.eventuator.accounts.registration.internal;
+package honestit.projects.eventuator.accounts.activation.internal;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

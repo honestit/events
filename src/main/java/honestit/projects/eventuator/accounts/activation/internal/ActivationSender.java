@@ -1,4 +1,4 @@
-package honestit.projects.eventuator.accounts.registration.internal;
+package honestit.projects.eventuator.accounts.activation.internal;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

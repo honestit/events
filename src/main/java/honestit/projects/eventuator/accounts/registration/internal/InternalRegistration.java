@@ -1,5 +1,7 @@
 package honestit.projects.eventuator.accounts.registration.internal;
 
+import honestit.projects.eventuator.accounts.activation.internal.AccountActivationProperties;
+import honestit.projects.eventuator.accounts.activation.internal.ActivationSender;
 import honestit.projects.eventuator.accounts.registration.Registration;
 import honestit.projects.eventuator.accounts.registration.RegistrationResponse;
 import honestit.projects.eventuator.model.user.Token;

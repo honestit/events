@@ -24,6 +24,10 @@ public class Token implements Serializable {
     @Column(name = "token_active_till", nullable = false)
     private LocalDateTime activeTill;
 
+    public boolean isValid(LocalDateTime when) {
+        return when.isAfter(createdOn) && when.isBefore(activeTill);
+    }
+
     public static Token generate(long time, TemporalUnit timeUnit) {
         LocalDateTime now = LocalDateTime.now();
         return Token.builder()
