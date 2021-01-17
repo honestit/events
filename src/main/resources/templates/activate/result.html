@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Aktywacja konta</title>
+</head>
+<body>
+<section th:if="${failReason == null}">
+    <h1 th:text="#{activation.result.success.title}">Twoje konto zostało aktywowane</h1>
+    <p>
+        <a th:href="@{/login}" th:text="#{activation.result.succes.next}">Zaloguj się</a>
+    </p>
+</section>
+<section th:if="${failReason != null}">
+    <h1 th:text="${#messages.msg(#strings.concat('activation.result.fail.', #strings.toLowerCase(failReason)))}"></h1>
+</section>
+</body>
+</html>
