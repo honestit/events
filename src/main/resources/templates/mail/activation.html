@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="UTF-8">
+    <title th:text="#{mail.activation.mail-title}">Activate your account</title>
+</head>
+<body>
+<h1 th:text="#{mail.activation.title}">Activate your account</h1>
+<p>
+    <span th:utext="#{mail.activation.info(${username})}">There was a registration request for account <b>account@account.ac</b></span>
+</p>
+<p>
+    <span th:text="#{mail.activation.follow}">To continue registration and activate your account please follow this link: </span><a th:href="@{http://__${address}__/activate/__${tokenValue}__}" th:text="#{mail.activation.link}">activate</a>
+</p>
+<p>
+    <span th:utext="#{mail.activation.ignore(${address})}">If you didn't register your account on <a href='http://localhost:8080'>localhost:8080</a> please ignore this message</span>
+</p>
+</body>
+</html>

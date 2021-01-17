@@ -33,6 +33,10 @@ public class InternalUserDetailsService implements UserDetailsService {
                 .map(user -> new User(
                         user.getUsername(),
                         user.getCredentials().getPassword(),
+                        user.getCredentials().getActive(),
+                        true,
+                        true,
+                        true,
                         Collections.singletonList(new SimpleGrantedAuthority(user.getCredentials().getRole()))
                 ))
                 .orElseThrow(() -> new UsernameNotFoundException(username));

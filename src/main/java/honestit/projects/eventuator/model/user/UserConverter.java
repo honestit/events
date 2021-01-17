@@ -13,6 +13,9 @@ public class UserConverter {
                 .credentials(UserCredentials.builder()
                         .password(request.getPassword())
                         .build())
+                .localization(UserLocalization.builder()
+                        .locale(request.getLocale().getLanguage())
+                        .build())
                 .build();
     }
 }
